@@ -1,3 +1,6 @@
+:root {
+  --gray-pri: #9FA9B3
+}
 * {
   padding: 0;
   margin: 0;
@@ -167,4 +170,62 @@ CATEGORIA
 }
 .content_unit_catgory p {
   color: #9FA9B3;
+}
+.rowFormExpend {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #9fa9b3;
+}
+.rowFormExpend > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rowFormExpend i {
+  color: #9fa9b3;
+  margin-right: 15px;
+}
+.rowFormExpend span {
+  color: #9fa9b3;
+  font-size: 18px;
+}
+.btn_change_category {
+  padding: 4px;
+  font-size: 13px;
+  border: 1px solid #9fa9b3;
+  color: #9fa9b3;
+  background-color: transparent;
+  border-radius: 5px;
+}
+.inputFormExpend {
+  background-color: transparent;
+  outline: none;
+  border: 0px;
+  width: 100%;
+  font-size: 28px;
+  color: #9fa9b3;
+}
+.rowFormSave {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+.rowFormSave i {
+  border: 1px solid var(--gray-pri);
+  border-radius: 50%;
+  color: #fff;
+  padding: 10px;
+  font-size: 30px;
+  background-color: #3F505A;
+  cursor: pointer;
+}
+
+.inputFormSubcategory {
+  background-color: transparent;
+  outline: none;
+  border: 0px;
+  width: 100%;
+  font-size: 18px;
+  color: #9fa9b3;
 }

@@ -64,7 +64,7 @@ const DateandAdd = () => {
                 </div>
                 <NavLink to={"/selecCateg"}>
                     <div className='and_add'>
-                        <i class="fas fa-plus bverde"></i>
+                        <i className="fas fa-plus bverde"></i>
                     </div>
                 </NavLink>
             </div>
