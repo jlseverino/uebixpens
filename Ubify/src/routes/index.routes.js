@@ -13,8 +13,6 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-
-
     try {
         const gasto = await Gastos.findById(req.params.id);
         res.json(gasto);
