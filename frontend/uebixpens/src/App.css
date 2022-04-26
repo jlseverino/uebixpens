@@ -1,5 +1,6 @@
 :root {
-  --gray-pri: #9FA9B3
+  --gray-pri: #9FA9B3;
+  --gray-back: #3F505A;
 }
 * {
   padding: 0;
@@ -98,6 +99,7 @@ background: radial-gradient(circle, rgba(54,82,92,1) 10%, rgba(29,49,61,1) 74%);
   font-weight: 700;
   border-right: 1px solid #9FA9B3;
   padding-right: 10px;
+  color: #fff;
 }
 .big_date > div {
   display: flex;
@@ -107,12 +109,14 @@ background: radial-gradient(circle, rgba(54,82,92,1) 10%, rgba(29,49,61,1) 74%);
 .big_date > div > span {
   font-size: 15px;
   font-weight: 700;
+  color: var(--gray-pri);
 }
 .and_add i {
   padding: 10px;
   border: 1px solid #9FA9B3;
   border-radius: 50%;
   font-size: 20px;
+  color: var(--gray-pri);
 }
 .content_home {
   padding: 10px;
@@ -228,4 +232,54 @@ CATEGORIA
   width: 100%;
   font-size: 18px;
   color: #9fa9b3;
+}
+/* ***********************************************
+CATEGORIA
+*********************************************** */
+.sectionHome {
+  padding: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+}
+.headerSectionHome {
+  background-color: var(--gray-back);
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bodySectionHome {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.simbolMoneda {
+  margin-left: 10px;
+}
+.rowExpendCategories {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gray-pri);
+}
+.rowExpendCategory {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--gray-pri);
+  font-weight: 500;
+  font-size: 17px;
+}
+.rowExpendCategoryAmount {
+  color: #26D5EA;
+}
+.rowExpendCategoryDescription > i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+.d-none {
+  display: none;
 }
