@@ -5,7 +5,7 @@ const Gastos = require('../models/gastos');
 router.get("/", async (req, res) => {
     try {
         const gastos = await Gastos.find();
-        console.log(gastos);
+        // console.log(gastos);
         res.json(gastos);
     } catch (e) {
         console.log(e);
@@ -14,8 +14,19 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const gasto = await Gastos.findById(req.params.id);
-        res.json(gasto);
+        if(req.params.id == "bycategory") {
+            const gasto = await Gastos.aggregate( [
+                {
+                   $group: { _id: "$categoria", subtotales: { $sum: "$valor" } }
+                }
+             ] );
+             console.log(gasto);
+             res.json(gasto);
+        } else {
+            const gasto = await Gastos.findById(req.params.id);
+            res.json(gasto);
+        }
+        
     } catch (e) {
         console.log(e);
     }
@@ -27,6 +38,34 @@ router.post('/', async (req, res) => {
     await gasto.save();
     res.json({ status: 'Gasto almacenado' });
 });
+
+
+router.post('/:id', async (req, res) => {
+    try {
+        if(req.params.id == "bycategory") {
+            const { firstDay, lastday } = req.body;
+
+            const aggregation = [
+                {
+                    $match: { fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) } } 
+                },
+                { 
+                    $group: { _id: '$categoria', subtotales: { $sum: '$valor' } } 
+                }
+            ];
+
+            const gastos = await Gastos.aggregate(aggregation);
+
+             console.log(gastos);
+             res.json(gastos);
+        } else{
+            res.json({ status: 'Error 404' });
+        }
+    } catch (e) {
+        console.log(e);
+    }
+});
+
 
 router.put('/:id', async (req, res) => {
 

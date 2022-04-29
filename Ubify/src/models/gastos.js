@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const gastosSchema = new Schema({
     id: { type: String, required: true },
-    fecha: { type: String, required: true },
+    fecha: { type: Date, required: true },
     hora: { type: String, required: true },
     categoria: { type: String, required: true },
     subcategoria: { type: String, required: true },

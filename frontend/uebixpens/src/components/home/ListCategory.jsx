@@ -76,7 +76,7 @@ const ListCategory = () => {
         let id = fecha + hora;
         let subcategory = document.getElementById('inputFormSubcategory').value;
 
-        setcategory(Object.assign(categoryexp, { valor: amount }, { hora: hora }, { fecha: fecha }, { id: id }, { subcategoria: subcategory }));
+        setcategory(Object.assign(categoryexp, { valor: amount }, { hora: hora }, { fecha: hoy }, { id: id }, { subcategoria: subcategory }));
         console.log(categoryexp);
 
         var url = 'http://localhost:4000/api/gastos/';
