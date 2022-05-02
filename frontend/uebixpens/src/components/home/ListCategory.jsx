@@ -80,6 +80,7 @@ const ListCategory = () => {
         console.log(categoryexp);
 
         var url = 'http://localhost:4000/api/gastos/';
+        // var url = 'https://apiuebify.herokuapp.com/api/gastos/';
         var data = JSON.stringify(categoryexp);
         console.log(data);
 

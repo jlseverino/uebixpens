@@ -241,6 +241,7 @@ CATEGORIA
   padding-left: 0px;
   padding-right: 0px;
   padding-bottom: 0px;
+  height: calc(50vh - 76px);
 }
 .headerSectionHome {
   background-color: var(--gray-back);
@@ -275,6 +276,7 @@ CATEGORIA
 }
 .rowExpendCategoryAmount {
   color: #26D5EA;
+  display: flex;
 }
 .rowExpendCategoryDescription > i {
   font-size: 20px;
@@ -282,4 +284,11 @@ CATEGORIA
 }
 .d-none {
   display: none;
+}
+.btn_detail_ccategory {
+  border: 1px solid var(--gray-pri);
+  color: var(--gray-pri);
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 2px 5px;
 }
