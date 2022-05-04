@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import Navbar from './components/Navbar';
 import HomeCategoryPage from './pages/HomeCategoryPage';
 import AddGasto from './pages/AddGasto';
+import HomeEditExpend from './pages/HomeEditExpend';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/selecCateg' element={<HomeCategoryPage/>} />
         <Route path='/agregarGasto' element={<AddGasto/>} />
         <Route path='*' element={<NotFoundPage/>} />
+        <Route path='/editExpend/:id' element={<HomeEditExpend/>} />
       </Routes>
     </BrowserRouter>
   );

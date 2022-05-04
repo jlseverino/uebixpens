@@ -7,7 +7,7 @@ const ListExpendCategory = () => {
     const [expendMonth, setExpendMonth] = useState([]);
     const [expendbyCategory, setExpendbyCategory] = useState([]);
     const [amountTotalMonth, setAmountTotalMonth] = useState(0);
-    const [selectCategory, setSelectCategory] = useState(null);
+    const [selectCategory, setSelectCategory] = useState("asd");
     const [listSubcategory, setListSubcategory] = useState([]);
 
 
@@ -129,23 +129,39 @@ const ListExpendCategory = () => {
                     },
                     body: JSON.stringify(data)
                 });
-            
-            console.log(resbysubcategory);
-
 
             let databysubcategory = await resbysubcategory.json();
-
-            console.log(databysubcategory);
-
+            
             setListSubcategory(databysubcategory);
 
             console.log(databysubcategory);
+
+            
+
+            console.log(listSubcategory);
         }
 
         getDatabySubcategory(url_bysubcategory);
 
-    }, [selectCategory])
+    }, [selectCategory]);
 
+    
+    //EDITAR SUBCATEGORIA
+    const editSubcategoria = async (id) => {
+        let url_getById = 'http://localhost:4000/api/gastos/'+id;
+        console.log(url_getById);
+
+        var res = await fetch(url_getById,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+        
+        let resDataJson = await res.json();
+
+    }
 
     return (
         <>
@@ -169,16 +185,12 @@ const ListExpendCategory = () => {
             <div className='sectionHome'>
                 <div className='headerSectionHome'>
                     <h4>DETALLE DEL GASTO</h4>
-                    <div>
-                        <span id='expendMonth'>{amountTotalMonth}</span>
-                        <span className='simbolMoneda'>S/</span>
-                    </div>
                 </div>
                 <div className='bodySectionHome'>
                     {listSubcategory.length == 0
                         ? <p>Sin subcategorias por mostrar</p>
                         : listSubcategory.map(subcategory =>
-                            <DetailExpend key={subcategory._id} _id={subcategory._id} subtotales={subcategory.subtotales} />
+                            <DetailExpend key={subcategory._id} subcategoria={subcategory.subcategoria} valor={subcategory.valor} funcion={editSubcategoria} id={subcategory._id} fecha={subcategory.fecha} />
                         )
                     }
                 </div>
