@@ -11,7 +11,7 @@ const SaldoPage = () => {
   
 
   useEffect(() => {
-        let url = 'http://localhost:4000/api/gastos/';
+        let url = 'https://apiuebify.herokuapp.com/api/gastos/';
 
         const getTotalExpend = (data) => {
             let dateNow = new Date();

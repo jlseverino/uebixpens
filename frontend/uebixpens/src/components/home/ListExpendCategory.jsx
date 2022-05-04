@@ -13,8 +13,8 @@ const ListExpendCategory = () => {
 
     useEffect(() => {
 
-        let url = 'http://localhost:4000/api/gastos/';
-        // let url = 'https://apiuebify.herokuapp.com/api/gastos/';
+        // let url = 'http://localhost:4000/api/gastos/';
+        let url = 'https://apiuebify.herokuapp.com/api/gastos/';
 
         const getTotalExpend = (data) => {
             let dateNow = new Date();
@@ -70,8 +70,8 @@ const ListExpendCategory = () => {
     }
 
     useEffect(() => {
-        let url_bycategory = 'http://localhost:4000/api/gastos/bycategory';
-        // let url_bycategory = 'https://apiuebify.herokuapp.com/api/gastos/bycategory';
+        // let url_bycategory = 'http://localhost:4000/api/gastos/bycategory';
+        let url_bycategory = 'https://apiuebify.herokuapp.com/api/gastos/bycategory';
 
         const getDatabyCategory = async (url_bycategory) => {
             var lastday = await getLastDay();
@@ -108,7 +108,8 @@ const ListExpendCategory = () => {
 
     useEffect(() => {
         console.log("desde el useEffect ", selectCategory);
-        let url_bysubcategory = 'http://localhost:4000/api/gastos/bysubcategory';
+        // let url_bysubcategory = 'http://localhost:4000/api/gastos/bysubcategory';
+        let url_bysubcategory = 'https://apiuebify.herokuapp.com/api/gastos/bysubcategory';
 
         const getDatabySubcategory = async (url_bysubcategory) => {
 
@@ -148,7 +149,8 @@ const ListExpendCategory = () => {
     
     //EDITAR SUBCATEGORIA
     const editSubcategoria = async (id) => {
-        let url_getById = 'http://localhost:4000/api/gastos/'+id;
+        let url_getById = 'https://apiuebify.herokuapp.com/api/gastos/'+id;
+
         console.log(url_getById);
 
         var res = await fetch(url_getById,
