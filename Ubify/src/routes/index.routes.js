@@ -5,7 +5,7 @@ const Gastos = require('../models/gastos');
 router.get("/", async (req, res) => {
     try {
         const gastos = await Gastos.find();
-        // console.log(gastos);
+        console.log(gastos);
         res.json(gastos);
     } catch (e) {
         console.log(e);
@@ -61,17 +61,27 @@ router.post('/:id', async (req, res) => {
         } else if(req.params.id == "bysubcategory") {
             const { firstDay, lastday, selectCategory } = req.body;
 
-            const aggregation = [
-                {
-                    $match: { categoria: selectCategory, fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) } }
-                },
-                { 
-                    $group: { _id: '$subcategoria', subtotales: { $sum: '$valor' } }
-                }
-            ];
+            // const aggregation = [
+            //     {
+            //         $match: { categoria: selectCategory, fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) } }
+            //     },
+            //     { 
+            //         $group: { _id: '$subcategoria', subtotales: { $sum: '$valor' } }
+            //     }
+            // ];
+            const gastos = await Gastos
+            .find(
+              {
+                fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) },
+                categoria: selectCategory
+              }
+            )
+            .sort({
+              fecha: 1
+            });
 
-            const gastos = await Gastos.aggregate(aggregation);
             console.log(gastos);
+
             res.json(gastos);
         } else{
             res.json({ status: 'Error 404' });
@@ -86,6 +96,7 @@ router.put('/:id', async (req, res) => {
 
     const { id, fecha, hora, categoria, subcategoria, valor } = req.body;
     const newGasto = { id, fecha, hora, categoria, subcategoria, valor };
+    console.log(newGasto);
     await Gastos.findByIdAndUpdate(req.params.id, newGasto);
     res.json({ status: 'Gasto actualizado!' });
 
