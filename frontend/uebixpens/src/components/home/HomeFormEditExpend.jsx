@@ -15,7 +15,8 @@ const HomeFormEditExpend = (props) => {
 
     useEffect(() => {
 
-        let url_getById = 'http://localhost:4000/api/gastos/' + props.id;
+        // let url_getById = 'http://localhost:4000/api/gastos/' + props.id;
+        let url_getById = 'https://apiuebify.herokuapp.com/api/gastos/' + props.id;
 
         const getSubcategoria = async (id) => {
             var res = await fetch(url_getById,
@@ -49,7 +50,8 @@ const HomeFormEditExpend = (props) => {
             valor: formData.get('valor'),
         }
 
-        let url_getById = 'http://localhost:4000/api/gastos/' + idsubcategory;
+        // let url_getById = 'http://localhost:4000/api/gastos/' + idsubcategory;
+        let url_getById = 'https://apiuebify.herokuapp.com/api/gastos/' + idsubcategory;
 
         const getUpdateExpend = async (id) => {
             var res = await fetch(url_getById,

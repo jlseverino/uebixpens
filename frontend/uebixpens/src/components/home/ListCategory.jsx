@@ -79,8 +79,8 @@ const ListCategory = () => {
         setcategory(Object.assign(categoryexp, { valor: amount }, { hora: hora }, { fecha: hoy }, { id: id }, { subcategoria: subcategory }));
         console.log(categoryexp);
 
-        var url = 'http://localhost:4000/api/gastos/';
-        // var url = 'https://apiuebify.herokuapp.com/api/gastos/';
+        // var url = 'http://localhost:4000/api/gastos/';
+        var url = 'https://apiuebify.herokuapp.com/api/gastos/';
         var data = JSON.stringify(categoryexp);
         console.log(data);
 
