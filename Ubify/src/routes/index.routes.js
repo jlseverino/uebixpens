@@ -61,14 +61,6 @@ router.post('/:id', async (req, res) => {
         } else if(req.params.id == "bysubcategory") {
             const { firstDay, lastday, selectCategory } = req.body;
 
-            // const aggregation = [
-            //     {
-            //         $match: { categoria: selectCategory, fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) } }
-            //     },
-            //     { 
-            //         $group: { _id: '$subcategoria', subtotales: { $sum: '$valor' } }
-            //     }
-            // ];
             const gastos = await Gastos
             .find(
               {

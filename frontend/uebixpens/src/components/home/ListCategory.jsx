@@ -1,55 +1,55 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import UnitCategory from './UnitCategory'
 
-var categpories = [
-    {
-        id: "1",
-        description: "Transporte",
-        icon: "",
-    },
-    {
-        id: "2",
-        description: "Vestimenta",
-        icon: "",
-    },
-    {
-        id: "3",
-        description: "Alimentos",
-        icon: "",
-    },
-    {
-        id: "4",
-        description: "Restaurante",
-        icon: "",
-    },
-    {
-        id: "5",
-        description: "Fiestas",
-        icon: "",
-    },
-    {
-        id: "6",
-        description: "Servicios",
-        icon: "",
-    },
-    {
-        id: "7",
-        description: "Tecnología",
-        icon: "",
-    },
-    {
-        id: "8",
-        description: "Mascota",
-        icon: "",
-    },
-    {
-        id: "9",
-        description: "Abarrotes",
-        icon: "",
-    }
-]
+// var categpories = [
+//     {
+//         id: "1",
+//         description: "Transporte",
+//         icon: "",
+//     },
+//     {
+//         id: "2",
+//         description: "Vestimenta",
+//         icon: "",
+//     },
+//     {
+//         id: "3",
+//         description: "Alimentos",
+//         icon: "",
+//     },
+//     {
+//         id: "4",
+//         description: "Restaurante",
+//         icon: "",
+//     },
+//     {
+//         id: "5",
+//         description: "Fiestas",
+//         icon: "",
+//     },
+//     {
+//         id: "6",
+//         description: "Servicios",
+//         icon: "",
+//     },
+//     {
+//         id: "7",
+//         description: "Tecnología",
+//         icon: "",
+//     },
+//     {
+//         id: "8",
+//         description: "Mascota",
+//         icon: "",
+//     },
+//     {
+//         id: "9",
+//         description: "Abarrotes",
+//         icon: "",
+//     }
+// ]
 
 let rowExpemd = {
     categoria: "sincategoria",
@@ -59,11 +59,14 @@ let rowExpemd = {
 const ListCategory = () => {
 
     const [categoryexp, setcategory] = useState(rowExpemd)
+    const [iconexp, seticon] = useState("")
+    const [categories2, setCateghories] = useState([]);
 
-    const selectCategory = (categorySelected) => {
+    const selectCategory = (categorySelected, iconSelected) => {
         setcategory({ ...{ categoria: categorySelected, valor: 0 } });
+        seticon(iconSelected);
     }
-
+    
     const resetCategory = () => {
         setcategory({ categoria: "sincategoria" });
     }
@@ -95,12 +98,54 @@ const ListCategory = () => {
             .then(response => console.log('Success:', response));
     }
 
+    // useEffect(() => {
+    //     const url = "https://apiuebify.herokuapp.com/api/categorias/";
+
+    //     const getCategoriesApi = async (url) => {
+    //         var res = await fetch(url,
+    //             {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //             });
+
+    //         let data = await res.json();
+
+    //         setCateghories(data);
+    //     }
+
+    //     getCategoriesApi(url);
+
+    // }, []);
+
+    useEffect(() => {
+        const url = "https://apiuebify.herokuapp.com/api/categorias/";
+
+        const getCategoriesApi = async (url) => {
+            var res = await fetch(url,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+            let data = await res.json();
+
+            setCateghories(data);
+        }
+
+        getCategoriesApi(url);
+
+    }, [])
+
     if (categoryexp.categoria == "sincategoria") {
         return (
             <div className='cont_list_category'>
                 {
-                    categpories.map(category =>
-                        <UnitCategory key={category.description} id={category.id} description={category.description} funcion={selectCategory} />
+                    categories2.map(category =>
+                        <UnitCategory key={category.categoria} id={category._id} description={category.categoria} icon={category.icon} funcion={selectCategory} />
                     )
                 }
             </div>
@@ -111,10 +156,10 @@ const ListCategory = () => {
                 <div className='rowFormExpend'>
                     <div>
                         <div>
-                            <i className="fas fa-utensils"></i>
+                            <i className={iconexp}></i>
                             <span>{categoryexp.categoria}</span>
                         </div>
-                        <button className='btn_change_category' onClick={resetCategory}>Cambiar</button>
+                        <button className='btn_change_category' onClick={resetCategory}>Cambiar jorge</button>
                     </div>
                 </div>
                 <div className='rowFormExpend'>

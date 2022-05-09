@@ -4,7 +4,7 @@ const BodySaldo = (props) => {
 
     const getRestante = () => {
         let restante = props.ingreso - props.gastoTotal;
-        return restante
+        return restante.toFixed(2);
     }
 
     let resto = getRestante()
@@ -14,11 +14,11 @@ const BodySaldo = (props) => {
             <div>
                 <div className='row_ingreso'>
                     <h5>Ingreso</h5>
-                    <div>S/ <span>{props.ingreso}</span></div>
+                    <div>S/ <span>{props.ingreso.toFixed(2)}</span></div>
                 </div>
                 <div className='row_ingreso style_gasto'>
                     <h5>Gasto</h5>
-                    <div>S/ <span>{props.gastoTotal}</span></div>
+                    <div>S/ <span>{props.gastoTotal.toFixed(2)}</span></div>
                 </div>
                 <div className='row_ingreso style_restante'>
                     <h5>Restante</h5>

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
     return (
-        <div className='navbar'>
+        <div className='navbar_uebify'>
             <ul className=''>
                 <NavLink to="/">
                     <li className='active'>

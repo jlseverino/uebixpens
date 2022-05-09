@@ -65,14 +65,14 @@ const HomeFormEditExpend = (props) => {
 
             let resDataJson = await res.json();
 
-            if(resDataJson.status == "Gasto actualizado!"){
+            if (resDataJson.status == "Gasto actualizado!") {
                 let menssage_success = document.getElementById('menssage_success');
                 menssage_success.textContent = resDataJson.status;
                 menssage_success.classList.remove('d-none');
                 setTimeout(() => {
                     menssage_success.classList.add('d-none');
                 }, 1500);
-                
+
             } else {
                 let menssage_success = document.getElementById('menssage_success');
                 menssage_success.textContent = "Error";
@@ -90,6 +90,7 @@ const HomeFormEditExpend = (props) => {
 
     return (
         <>
+           
             <div className='container_form'>
                 <form onSubmit={datosEdit} id="datosEditform">
                     <div className='row_formEditExpend'>
@@ -133,6 +134,7 @@ const HomeFormEditExpend = (props) => {
                         <label htmlFor="categoria">Valor</label>
                         <input
                             type="number"
+                            step="any"
                             defaultValue={expends.valor}
                             name="valor"
                         />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Modal } from 'bootstrap';
 
 const DetailExpend = (props) => {
 
@@ -10,9 +11,35 @@ const DetailExpend = (props) => {
         let anio = fechaSinFormat.substring(0, 4);
         let mes = fechaSinFormat.substring(5, 7);
         let dia = fechaSinFormat.substring(8, 10);
-        let fechaFormat = dia + "-"+mes+"-"+anio;
+        let fechaFormat = dia + "-" + mes + "-" + anio;
         setFecha(fechaFormat);
     }, [props.fecha])
+
+    const openModalDelete = (idExpend, idModal, idaceptar) => {
+        let modal = new Modal(document.getElementById(idModal), {});
+        modal.show();
+
+        let aceptar = document.getElementById(idaceptar);
+        aceptar.onclick = () => {
+            deleteExpend(idExpend, modal);
+        }
+    }
+
+    const deleteExpend = async (id, modal) => {
+        // const url_del = "http://localhost:4000/api/gastos/" + id;
+        const url_del = "https://apiuebify.herokuapp.com/api/gastos/" + id;
+
+        var res = await fetch(url_del,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+        let data = await res.json();
+        modal.hide();
+    }
 
     return (
         <>
@@ -31,8 +58,9 @@ const DetailExpend = (props) => {
                         <span>{props.valor}</span>
                         <span className='simbolMoneda'>S/</span>
                         <Link to={"/editExpend/" + props.id} className="btn_detail_ccategory">
-                            <span>Editar</span>
+                            <i class="fas fa-edit"></i>
                         </Link>
+                        <span onClick={() => openModalDelete(props.id, "modalDeleteExpend", "deleteExpend")} className='trash_expend_detail'><i className="fas fa-trash"></i></span>
                     </div>
                 </div>
             </div>

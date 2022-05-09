@@ -27,7 +27,7 @@ const ListExpendCategory = () => {
                     valorTotal = valorTotal + gasto.valor;
                 }
             })
-            setAmountTotalMonth(valorTotal);
+            setAmountTotalMonth(valorTotal.toFixed(2));
 
         }
 
@@ -149,6 +149,7 @@ const ListExpendCategory = () => {
     
     //EDITAR SUBCATEGORIA
     const editSubcategoria = async (id) => {
+        // let url_getById = 'http://localhost:4000/api/gastos/'+id;
         let url_getById = 'https://apiuebify.herokuapp.com/api/gastos/'+id;
 
         console.log(url_getById);
