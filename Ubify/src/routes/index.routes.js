@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router();
 const Gastos = require('../models/gastos');
 
-router.get("/", async (req, res) => {
+router.get("/:usuario", async (req, res) => {
     try {
-        const gastos = await Gastos.find();
+        const gastos = await Gastos.find({usuario: req.params.usuario});
         console.log(gastos);
         res.json(gastos);
     } catch (e) {
@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id/:usuario", async (req, res) => {
     try {
         if(req.params.id == "bycategory") {
             const gasto = await Gastos.aggregate( [
@@ -33,21 +33,24 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { id, fecha, hora, categoria, subcategoria, valor } = req.body;
-    const gasto = new Gastos({ id, fecha, hora, categoria, subcategoria, valor });
+    const { id, fecha, hora, categoria, subcategoria, valor, usuario } = req.body;
+    const gasto = new Gastos({ id, fecha, hora, categoria, subcategoria, valor, usuario });
     await gasto.save();
     res.json({ status: 'Gasto almacenado' });
 });
 
 
-router.post('/:id', async (req, res) => {
+router.post('/:id/:usuario', async (req, res) => {
     try {
         if(req.params.id == "bycategory") {
             const { firstDay, lastday } = req.body;
 
             const aggregation = [
                 {
-                    $match: { fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) } } 
+                    $match: { 
+                        fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) },
+                        usuario: req.params.usuario
+                    } 
                 },
                 { 
                     $group: { _id: '$categoria', subtotales: { $sum: '$valor' } } 
@@ -65,7 +68,8 @@ router.post('/:id', async (req, res) => {
             .find(
               {
                 fecha: { $gte: new Date(firstDay), $lt: new Date(lastday) },
-                categoria: selectCategory
+                categoria: selectCategory,
+                usuario: req.params.usuario
               }
             )
             .sort({
@@ -86,8 +90,8 @@ router.post('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
 
-    const { id, fecha, hora, categoria, subcategoria, valor } = req.body;
-    const newGasto = { id, fecha, hora, categoria, subcategoria, valor };
+    const { id, fecha, hora, categoria, subcategoria, valor, usuario } = req.body;
+    const newGasto = { id, fecha, hora, categoria, subcategoria, valor, usuario };
     console.log(newGasto);
     await Gastos.findByIdAndUpdate(req.params.id, newGasto);
     res.json({ status: 'Gasto actualizado!' });

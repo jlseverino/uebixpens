@@ -148,7 +148,33 @@ body {
 .border_botton {
   border-bottom: 1px solid #9FA9B3;
 }
-
+/* ****************************************************
+LOGIN START
+**************************************************** */
+.content_start {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.content_start img {
+  width: 60%;
+}
+.btn_start {
+  border: 1px solid #fff;
+  outline: none;
+  width: 80%;
+  margin: 20px 0px;
+  padding: 5px 0px;
+  background-color: transparent;
+  color: #Fff;
+}
+.copyrigt {
+  position: absolute;
+  bottom: 10px;
+  color: #01A0FE;
+}
 /* ****************************************************
 CATEGORIA
 **************************************************** */

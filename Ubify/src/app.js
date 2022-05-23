@@ -45,37 +45,37 @@ app.use((req, res, next) => {
 app.use('/api/gastos', require('./routes/index.routes.js'));
 app.use('/api/categorias', require('./routes/categorias.routes.js'));
 
-// app.use('/api/gastos', createProxyMiddleware({ 
-//     target: 'http://localhost:4000/api/gastos',
-//     changeOrigin: true, 
-//     onProxyRes: function (proxyRes, req, res) {
-//        proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000/';// '*'
-//     }
-// }));
-
-// app.use('/api/categorias', createProxyMiddleware({ 
-//     target: 'http://localhost:4000/api/categorias',
-//     changeOrigin: true, 
-//     onProxyRes: function (proxyRes, req, res) {
-//        proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000/';// '*'
-//     }
-// }));
-
 app.use('/api/gastos', createProxyMiddleware({ 
-    target: 'https://apiuebify.herokuapp.com/api/gastos',
+    target: 'http://localhost:4000/api/gastos',
     changeOrigin: true, 
     onProxyRes: function (proxyRes, req, res) {
-       proxyRes.headers['Access-Control-Allow-Origin'] = 'https://apiuebixpens.uebifyperu.com';// '*'
+       proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000/';// '*'
     }
 }));
 
 app.use('/api/categorias', createProxyMiddleware({ 
-    target: 'https://apiuebify.herokuapp.com/api/categorias',
+    target: 'http://localhost:4000/api/categorias',
     changeOrigin: true, 
     onProxyRes: function (proxyRes, req, res) {
-       proxyRes.headers['Access-Control-Allow-Origin'] = 'https://apiuebixpens.uebifyperu.com';// '*'
+       proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000/';// '*'
     }
 }));
+
+// app.use('/api/gastos', createProxyMiddleware({ 
+//     target: 'https://apiuebify.herokuapp.com/api/gastos',
+//     changeOrigin: true, 
+//     onProxyRes: function (proxyRes, req, res) {
+//        proxyRes.headers['Access-Control-Allow-Origin'] = 'https://apiuebixpens.uebifyperu.com';// '*'
+//     }
+// }));
+
+// app.use('/api/categorias', createProxyMiddleware({ 
+//     target: 'https://apiuebify.herokuapp.com/api/categorias',
+//     changeOrigin: true, 
+//     onProxyRes: function (proxyRes, req, res) {
+//        proxyRes.headers['Access-Control-Allow-Origin'] = 'https://apiuebixpens.uebifyperu.com';// '*'
+//     }
+// }));
 
 // Stactic files
 app.use(express.static(path.join(__dirname, 'public')));

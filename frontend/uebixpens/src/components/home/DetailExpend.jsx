@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal } from 'bootstrap';
+import { Constantes } from '../../Constantes';
 
 const DetailExpend = (props) => {
 
@@ -26,8 +27,7 @@ const DetailExpend = (props) => {
     }
 
     const deleteExpend = async (id, modal) => {
-        // const url_del = "http://localhost:4000/api/gastos/" + id;
-        const url_del = "https://apiuebify.herokuapp.com/api/gastos/" + id;
+        const url_del = Constantes.api_gastos + id;
 
         var res = await fetch(url_del,
             {
@@ -58,7 +58,7 @@ const DetailExpend = (props) => {
                         <span>{props.valor}</span>
                         <span className='simbolMoneda'>S/</span>
                         <Link to={"/editExpend/" + props.id} className="btn_detail_ccategory">
-                            <i class="fas fa-edit"></i>
+                            <i className="fas fa-edit"></i>
                         </Link>
                         <span onClick={() => openModalDelete(props.id, "modalDeleteExpend", "deleteExpend")} className='trash_expend_detail'><i className="fas fa-trash"></i></span>
                     </div>

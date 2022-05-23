@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import DetailExpend from './DetailExpend';
 import ExpendByCategoryMonth from './ExpendByCategoryMonth';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Constantes } from '../../Constantes'
 
 const ListExpendCategory = () => {
+
+    const { user, isAuthenticated } = useAuth0();
 
     const [expendMonth, setExpendMonth] = useState([]);
     const [expendbyCategory, setExpendbyCategory] = useState([]);
@@ -13,8 +17,7 @@ const ListExpendCategory = () => {
 
     useEffect(() => {
 
-        // let url = 'http://localhost:4000/api/gastos/';
-        let url = 'https://apiuebify.herokuapp.com/api/gastos/';
+        let url = Constantes.api_gastos + user.email;
 
         const getTotalExpend = (data) => {
             let dateNow = new Date();
@@ -70,8 +73,7 @@ const ListExpendCategory = () => {
     }
 
     useEffect(() => {
-        // let url_bycategory = 'http://localhost:4000/api/gastos/bycategory';
-        let url_bycategory = 'https://apiuebify.herokuapp.com/api/gastos/bycategory';
+        let url_bycategory = Constantes.api_gastos + 'bycategory/' + user.email;
 
         const getDatabyCategory = async (url_bycategory) => {
             var lastday = await getLastDay();
@@ -108,8 +110,7 @@ const ListExpendCategory = () => {
 
     useEffect(() => {
         console.log("desde el useEffect ", selectCategory);
-        // let url_bysubcategory = 'http://localhost:4000/api/gastos/bysubcategory';
-        let url_bysubcategory = 'https://apiuebify.herokuapp.com/api/gastos/bysubcategory';
+        let url_bysubcategory = Constantes.api_gastos + 'bysubcategory/' + user.email;
 
         const getDatabySubcategory = async (url_bysubcategory) => {
 
@@ -149,8 +150,7 @@ const ListExpendCategory = () => {
     
     //EDITAR SUBCATEGORIA
     const editSubcategoria = async (id) => {
-        // let url_getById = 'http://localhost:4000/api/gastos/'+id;
-        let url_getById = 'https://apiuebify.herokuapp.com/api/gastos/'+id;
+        let url_getById = Constantes.api_gastos + id + "/" + user.email;
 
         console.log(url_getById);
 
@@ -179,7 +179,7 @@ const ListExpendCategory = () => {
                 <div className='bodySectionHome'>
                     {
                         expendbyCategory.map(expendCategory =>
-                            <ExpendByCategoryMonth key={expendCategory._id} _id={expendCategory._id} subtotales={expendCategory.subtotales} funcion={getSubcategory} />
+                            <ExpendByCategoryMonth key={expendCategory._id} _id={expendCategory._id} subtotales={expendCategory.subtotales.toFixed(2)} funcion={getSubcategory} />
                         )
                     }
                 </div>
@@ -193,7 +193,7 @@ const ListExpendCategory = () => {
                     {listSubcategory.length == 0
                         ? <p>Sin subcategorias por mostrar</p>
                         : listSubcategory.map(subcategory =>
-                            <DetailExpend key={subcategory._id} subcategoria={subcategory.subcategoria} valor={subcategory.valor} funcion={editSubcategoria} id={subcategory._id} fecha={subcategory.fecha} />
+                            <DetailExpend key={subcategory._id} subcategoria={subcategory.subcategoria} valor={subcategory.valor.toFixed(2)} funcion={editSubcategoria} id={subcategory._id} fecha={subcategory.fecha} />
                         )
                     }
                 </div>

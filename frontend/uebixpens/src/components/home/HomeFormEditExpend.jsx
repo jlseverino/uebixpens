@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Constantes } from '../../Constantes'
 
 const HomeFormEditExpend = (props) => {
+    const { user, isAuthenticated } = useAuth0();
+    console.log(user);
+
     const [datos, setDatos] = useState({
         id: '',
         categoria: ''
@@ -15,8 +20,7 @@ const HomeFormEditExpend = (props) => {
 
     useEffect(() => {
 
-        // let url_getById = 'http://localhost:4000/api/gastos/' + props.id;
-        let url_getById = 'https://apiuebify.herokuapp.com/api/gastos/' + props.id;
+        let url_getById = Constantes.api_gastos + props.id + "/" + user.email;
 
         const getSubcategoria = async (id) => {
             var res = await fetch(url_getById,
@@ -48,10 +52,10 @@ const HomeFormEditExpend = (props) => {
             fecha: formData.get('fecha'),
             hora: formData.get('hora'),
             valor: formData.get('valor'),
+            usuario: user.email,
         }
 
-        // let url_getById = 'http://localhost:4000/api/gastos/' + idsubcategory;
-        let url_getById = 'https://apiuebify.herokuapp.com/api/gastos/' + idsubcategory;
+        let url_getById = Constantes.api_gastos + idsubcategory;
 
         const getUpdateExpend = async (id) => {
             var res = await fetch(url_getById,
@@ -60,7 +64,7 @@ const HomeFormEditExpend = (props) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(data)
+                    ody: JSON.stringify(data)
                 });
 
             let resDataJson = await res.json();

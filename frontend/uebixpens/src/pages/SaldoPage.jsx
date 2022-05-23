@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import BodySaldo from '../components/saldo/BodySaldo'
 import CabeceraSaldo from '../components/saldo/CabeceraSaldo'
+import { useAuth0 } from '@auth0/auth0-react';
+import { Constantes } from '../Constantes';
 
 const SaldoPage = () => {
 
-  const [expendMonth, setExpendMonth] = useState([]);
-  const [amountTotalMonth, setAmountTotalMonth] = useState(0);
+    const { user, isAuthenticated } = useAuth0();
 
-  const[ingreso, setIngreso] = useState(857.83);
-  
+    const [expendMonth, setExpendMonth] = useState([]);
+    const [amountTotalMonth, setAmountTotalMonth] = useState(0);
 
-  useEffect(() => {
-        // let url = 'http://localhost:4000/api/gastos/';
-        let url = 'https://apiuebify.herokuapp.com/api/gastos/';
+    const [ingreso, setIngreso] = useState(857.83);
+
+
+    useEffect(() => {
+        let url = Constantes.api_gastos + user.email;
 
         const getTotalExpend = (data) => {
             let dateNow = new Date();
@@ -42,17 +45,17 @@ const SaldoPage = () => {
         }
 
         getData(url);
-  }, []);
-
-  
+    }, []);
 
 
-  return (
-    <>
-      <CabeceraSaldo />
-      <BodySaldo gastoTotal={amountTotalMonth} ingreso={ingreso} />
-    </>
-  )
+
+
+    return (
+        <>
+            <CabeceraSaldo />
+            <BodySaldo gastoTotal={amountTotalMonth} ingreso={ingreso} />
+        </>
+    )
 }
 
 export default SaldoPage

@@ -8,6 +8,7 @@ const gastosSchema = new Schema({
     categoria: { type: String, required: true },
     subcategoria: { type: String, required: true },
     valor: { type: Number, required: true },
+    usuario: { type: String, required: true },
 })
 
 module.exports = mongoose.model('Gastos', gastosSchema);

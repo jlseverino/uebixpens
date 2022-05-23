@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import HeaderViews from '../components/home/HeaderViews';
 import UnitCategory from '../components/home/UnitCategory';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Constantes } from '../Constantes';
 
 const HomeCategoryEdit = () => {
+
+    const { user, isAuthenticated } = useAuth0();
 
     const [categories, setCateghories] = useState([]);
 
     useEffect(() => {
-        // const url = "http://localhost:4000/api/categorias/";
-        const url = "https://apiuebify.herokuapp.com/api/categorias/";
+        const url = Constantes.api_categorias + user.email;
 
         const getCategoriesApi = async (url) => {
             var res = await fetch(url,
@@ -25,7 +28,6 @@ const HomeCategoryEdit = () => {
         }
 
         getCategoriesApi(url);
-        // getCategoriesApi(url_bysubcategory);
 
     }, [])
 

@@ -1,55 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
-
-import UnitCategory from './UnitCategory'
-
-// var categpories = [
-//     {
-//         id: "1",
-//         description: "Transporte",
-//         icon: "",
-//     },
-//     {
-//         id: "2",
-//         description: "Vestimenta",
-//         icon: "",
-//     },
-//     {
-//         id: "3",
-//         description: "Alimentos",
-//         icon: "",
-//     },
-//     {
-//         id: "4",
-//         description: "Restaurante",
-//         icon: "",
-//     },
-//     {
-//         id: "5",
-//         description: "Fiestas",
-//         icon: "",
-//     },
-//     {
-//         id: "6",
-//         description: "Servicios",
-//         icon: "",
-//     },
-//     {
-//         id: "7",
-//         description: "Tecnología",
-//         icon: "",
-//     },
-//     {
-//         id: "8",
-//         description: "Mascota",
-//         icon: "",
-//     },
-//     {
-//         id: "9",
-//         description: "Abarrotes",
-//         icon: "",
-//     }
-// ]
+import { NavLink } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import UnitCategory from './UnitCategory';
+import { Constantes } from '../../Constantes.jsx'
 
 let rowExpemd = {
     categoria: "sincategoria",
@@ -58,9 +11,11 @@ let rowExpemd = {
 
 const ListCategory = () => {
 
+    const { user, isAuthenticated } = useAuth0();
+
     const [categoryexp, setcategory] = useState(rowExpemd)
     const [iconexp, seticon] = useState("")
-    const [categories2, setCateghories] = useState([]);
+    const [categories, setCateghories] = useState([]);
 
     const selectCategory = (categorySelected, iconSelected) => {
         setcategory({ ...{ categoria: categorySelected, valor: 0 } });
@@ -79,11 +34,10 @@ const ListCategory = () => {
         let id = fecha + hora;
         let subcategory = document.getElementById('inputFormSubcategory').value;
 
-        setcategory(Object.assign(categoryexp, { valor: amount }, { hora: hora }, { fecha: hoy }, { id: id }, { subcategoria: subcategory }));
+        setcategory(Object.assign(categoryexp, { valor: amount }, { hora: hora }, { fecha: hoy }, { id: id }, { subcategoria: subcategory }, {usuario: user.email} ));
         console.log(categoryexp);
 
-        // var url = 'http://localhost:4000/api/gastos/';
-        var url = 'https://apiuebify.herokuapp.com/api/gastos/';
+        var url = Constantes.api_gastos;
         var data = JSON.stringify(categoryexp);
         console.log(data);
 
@@ -95,32 +49,14 @@ const ListCategory = () => {
             body: data
         }).then(res => res.json())
             .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response));
+            .then(response => {
+                console.log('Success:', response);
+                window.location.href = "./";
+            })
     }
 
-    // useEffect(() => {
-    //     const url = "https://apiuebify.herokuapp.com/api/categorias/";
-
-    //     const getCategoriesApi = async (url) => {
-    //         var res = await fetch(url,
-    //             {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //             });
-
-    //         let data = await res.json();
-
-    //         setCateghories(data);
-    //     }
-
-    //     getCategoriesApi(url);
-
-    // }, []);
-
     useEffect(() => {
-        const url = "https://apiuebify.herokuapp.com/api/categorias/";
+        const url = Constantes.api_categorias + user.email;
 
         const getCategoriesApi = async (url) => {
             var res = await fetch(url,
@@ -144,7 +80,7 @@ const ListCategory = () => {
         return (
             <div className='cont_list_category'>
                 {
-                    categories2.map(category =>
+                    categories.map(category =>
                         <UnitCategory key={category.categoria} id={category._id} description={category.categoria} icon={category.icon} funcion={selectCategory} />
                     )
                 }
@@ -159,7 +95,7 @@ const ListCategory = () => {
                             <i className={iconexp}></i>
                             <span>{categoryexp.categoria}</span>
                         </div>
-                        <button className='btn_change_category' onClick={resetCategory}>Cambiar jorge</button>
+                        <button className='btn_change_category' onClick={resetCategory}>Cambiar</button>
                     </div>
                 </div>
                 <div className='rowFormExpend'>
